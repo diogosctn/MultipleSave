@@ -28,6 +28,15 @@ namespace MultipleSave
             this.GetData();
         }
 
+        public MultipleSaveTreeFolder()
+        {
+            this.Name = "MultipleSaveTreeFolder";
+
+            this.EnumerableChanged += this.TreeFolder1_ChildrenChanged;
+
+            this.GetData();
+        }
+
         private void TreeFolder1_ChildrenChanged(object sender, ElementEnumerableChangeEventArgs e)
         {
         }
