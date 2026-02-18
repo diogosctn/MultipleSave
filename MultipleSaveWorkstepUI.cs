@@ -37,5 +37,38 @@ namespace MultipleSave
             this.args = args;
             this.context = context;
         }
+
+        private void BtnSave_Click(object sender, EventArgs e)
+        {
+            // Toda alteração de dados no Petrel deve ocorrer dentro de uma Transação
+            //using (ITransaction trans = DataManager.NewTransaction())
+            //{
+            //    try
+            //    {
+            //        trans.Lock(PetrelProject.PrimaryProject);
+
+            //        SampleCustomDomainObject dados = Data  ;
+
+            //        dados.MinhaInformacao = txtInfo.Text;
+
+            //        double val = 0;
+            //        double.TryParse(txtNumber.Text, out val);
+            //        dados.UmValorNumerico = val;
+
+            //        trans.Commit();
+
+            //        lblStatus.Text = "Status: Objeto criado na Input Tree!";
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        lblStatus.Text = "Erro ao criar o objeto: " + ex.Message;
+            //    }
+            //}
+
+        }
+
+        private void BtnLoad_Click(object sender, EventArgs e)
+        {
+        }
     }
 }

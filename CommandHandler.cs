@@ -1,10 +1,10 @@
+using Slb.Ocean.Petrel;
+using Slb.Ocean.Petrel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
-using Slb.Ocean.Petrel.Commands;
-using Slb.Ocean.Petrel;
+using System.Windows.Forms;
 
 namespace MultipleSave
 {
@@ -20,11 +20,27 @@ namespace MultipleSave
         }
 
         public override void Execute(Slb.Ocean.Petrel.Contexts.Context context)
-        {          
-            //TODO: Add command execution logic here
-            PetrelLogger.InfoOutputWindow(string.Format("{0} clicked", @"MultipleSaveCommand" ));
+        {
+            MultipleSaveWorkstep workstep = new MultipleSaveWorkstep();
+            MultipleSaveWorkstep.Arguments args = new MultipleSaveWorkstep.Arguments();
+            MultipleSaveWorkstepUI workstepUI = new MultipleSaveWorkstepUI(workstep, args, null);
+            workstepUI.Dock = DockStyle.Fill;
+
+            Form form = new Form();
+            form.Controls.Add(workstepUI);
+            form.ShowIcon = false;
+            form.Text = "Plugin Multiple Save Test";
+            form.AutoSize = false;
+            form.FormBorderStyle = FormBorderStyle.Sizable;
+            form.MaximizeBox = false;
+            form.MinimizeBox = true;
+
+            form.MinimumSize = workstepUI.MinimumSize;
+
+            form.ClientSize = workstepUI.MinimumSize;
+            PetrelSystem.ShowModeless(form);
         }
-    
+
         #endregion
     }
 }

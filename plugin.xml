@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<InstalledPlugins xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Plugin>
+    <Name>Plugin</Name>
+    <Description>A toy model plugin designed to validate data persistence and hierarchical storage within Petrel. It captures text and numeric inputs to generate and retrieve custom domain objects in the Input Tree.</Description>
+    <Contact>diogosctn@protonmail.com</Contact>
+    <PluginTypeName>MultipleSave.Plugin, MultipleSave, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</PluginTypeName>
+    <PluginUri>https://www.pluginuri.info/</PluginUri>
+    <PluginId>://MultipleSave.Plugin/1.0.0.0</PluginId>
+    <Trust PublicKeyToken="">Default</Trust>
+    <ReleaseDate>2026-02-18</ReleaseDate>
+    <Author>diogosctn</Author>
+    <AppVersion>2024.1</AppVersion>
+    <Modules>
+      <Module TypeName="MultipleSave.Module, MultipleSave, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    </Modules>
+    <Assemblies>
+      <Assembly Name="MultipleSave, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+    </Assemblies>
+    <assemblyBinding />
+    <StartMode>Startup</StartMode>
+    <StartupAction>None</StartupAction>
+  </Plugin>
+</InstalledPlugins>
