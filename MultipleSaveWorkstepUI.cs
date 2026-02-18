@@ -1,9 +1,9 @@
+using Slb.Ocean.Core;
+using Slb.Ocean.Petrel;
+using Slb.Ocean.Petrel.Workflow;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-
-using Slb.Ocean.Petrel.Workflow;
-using Slb.Ocean.Core;
 
 namespace MultipleSave
 {
@@ -40,14 +40,16 @@ namespace MultipleSave
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            MultileSaveTreeManager.CreateFolder();
-            MultileSaveTreeManager.CreateFullDataItem();
-            MultileSaveTreeManager.CreateTextDataItem();
-            MultileSaveTreeManager.CreateNumberDataItem();
+            MultipleSaveTreeManager.CreateFolder();
+            MultipleSaveTreeManager.CreateFullDataItem();
+            MultipleSaveTreeManager.CreateNumberDataItem();
+
+            MultipleSaveTreeManager.SaveTextDataItem(txtInfo.Text);
         }
 
         private void BtnLoad_Click(object sender, EventArgs e)
         {
+            txtInfo.Text = MultipleSaveTreeManager.GetTextFromSelectedObject();
         }
     }
 }

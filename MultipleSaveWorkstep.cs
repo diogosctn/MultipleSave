@@ -94,23 +94,6 @@ namespace MultipleSave
             public Arguments(IDataSourceManager dataSourceManager)
             {
             }
-
-            private string textToSave;
-            private double numberToSave = 0;
-
-            public string TextToSave
-            {
-                internal get { return this.textToSave; }
-                set { this.textToSave = value; }
-            }
-
-            public double NumberToSave
-            {
-                internal get { return this.numberToSave; }
-                set { this.numberToSave = value; }
-            }
-
-
         }
     
         #region IAppearance Members

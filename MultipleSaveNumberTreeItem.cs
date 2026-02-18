@@ -12,12 +12,12 @@ namespace MultipleSave
 	/// </summary>
 	class MultipleSaveNumberTreeItem : INameInfoSource, IImageInfoSource
 	{
-		/// <summary>
-		/// MultipleSaveNumberTreeItem symbolises this instance in the tree.
-		/// </summary>
-		private object data;
+        /// <summary>
+        /// MultipleSaveNumberTreeItem symbolises this instance in the tree.
+        /// </summary>
+        public CustomDomainObjectText data { get; private set; }
 
-		public MultipleSaveNumberTreeItem(object dataobj)
+        public MultipleSaveNumberTreeItem(CustomDomainObjectText dataobj)
 		{
 			this.data = dataobj;
 			this.Text = "MultipleSaveNumberTreeItem";

@@ -42,6 +42,8 @@ namespace MultipleSave
         /// </summary>
         public void Integrate()
         {
+            // Register MultipleSave.DataSourceText
+            PetrelSystem.AddDataSourceFactory(MultipleSave.DataSourceTextFactory.Instance);
             // Register TreeItem
             CoreSystem.Services.AddService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.INameInfoFactory), MultipleSave.MultipleSaveTreeFolderFactory.Instance);
             CoreSystem.Services.AddService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.IImageInfoFactory), MultipleSave.MultipleSaveTreeFolderFactory.Instance);
@@ -118,6 +120,8 @@ namespace MultipleSave
         /// </summary>
         public void Disintegrate()
         {
+            // Unregister DataSourceText
+            PetrelSystem.RemoveDataSourceFactory(MultipleSave.DataSourceTextFactory.Instance);
             CoreSystem.Services.RemoveService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.INameInfoFactory));
             CoreSystem.Services.RemoveService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.IImageInfoFactory));
             CoreSystem.Services.RemoveService(typeof(MultipleSave.MultipleSaveTreeItem), typeof(Slb.Ocean.Petrel.UI.INameInfoFactory));

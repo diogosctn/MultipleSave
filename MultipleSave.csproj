@@ -39,6 +39,7 @@
   <ItemGroup>
     <Reference Include="Slb.Ocean.Data, Version=1.0.0.0, Culture=neutral, PublicKeyToken=14ef4a483ef6a64b, processorArchitecture=MSIL" />
     <Reference Include="Slb.Ocean.Petrel.Configuration, Version=21.3.0.0, Culture=neutral, PublicKeyToken=d42cec326f61051f, processorArchitecture=MSIL" />
+    <Reference Include="Slb.Ocean.Petrel.Data.Persistence, Version=21.3.0.0, Culture=neutral, PublicKeyToken=14ef4a483ef6a64b, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -68,7 +69,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MultileSaveTreeManager.cs" />
+    <Compile Include="CustomDomainObjectText.cs">
+      <SubType>Ocean</SubType>
+    </Compile>
+    <Compile Include="DataSourceText.cs" />
+    <Compile Include="MultipleSaveTreeManager.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Module.cs" />
     <Compile Include="MultipleSaveNumberTreeItem.cs" />
