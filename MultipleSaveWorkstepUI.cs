@@ -42,7 +42,6 @@ namespace MultipleSave
         {
             MultipleSaveTreeManager.CreateFolder();
             MultipleSaveTreeManager.CreateFullDataItem();
-            MultipleSaveTreeManager.CreateNumberDataItem();
 
             MultipleSaveTreeManager.SaveTextDataItem(txtInfo.Text);
         }

@@ -69,33 +69,33 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomDomainObjectText.cs">
+    <Compile Include="DataSource\CustomDomainObjectText.cs">
       <SubType>Ocean</SubType>
     </Compile>
-    <Compile Include="DataSourceText.cs" />
-    <Compile Include="MultipleSaveTreeManager.cs" />
+    <Compile Include="DataSource\DataSourceText.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeManager.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Module.cs" />
-    <Compile Include="MultipleSaveNumberTreeItem.cs" />
-    <Compile Include="MultipleSaveNumberTreeItemCommandHandler.cs" />
-    <Compile Include="MultipleSaveNumberTreeItemFactory.cs" />
-    <Compile Include="MultipleSaveNumberTreeItemImageInfo.cs" />
-    <Compile Include="MultipleSaveNumberTreeItemNameInfo.cs" />
-    <Compile Include="MultipleSaveTextTreeItem.cs" />
-    <Compile Include="MultipleSaveTextTreeItemCommandHandler.cs" />
-    <Compile Include="MultipleSaveTextTreeItemFactory.cs" />
-    <Compile Include="MultipleSaveTextTreeItemImageInfo.cs" />
-    <Compile Include="MultipleSaveTextTreeItemNameInfo.cs" />
-    <Compile Include="MultipleSaveTreeFolder.cs" />
-    <Compile Include="MultipleSaveTreeFolderCommandHandler.cs" />
-    <Compile Include="MultipleSaveTreeFolderFactory.cs" />
-    <Compile Include="MultipleSaveTreeFolderImageInfo.cs" />
-    <Compile Include="MultipleSaveTreeFolderNameInfo.cs" />
-    <Compile Include="MultipleSaveTreeItem.cs" />
-    <Compile Include="MultipleSaveTreeItemCommandHandler.cs" />
-    <Compile Include="MultipleSaveTreeItemFactory.cs" />
-    <Compile Include="MultipleSaveTreeItemImageInfo.cs" />
-    <Compile Include="MultipleSaveTreeItemNameInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveNumberTreeItem.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveNumberTreeItemCommandHandler.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveNumberTreeItemFactory.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveNumberTreeItemImageInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveNumberTreeItemNameInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTextTreeItem.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTextTreeItemCommandHandler.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTextTreeItemFactory.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTextTreeItemImageInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTextTreeItemNameInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeFolder.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeFolderCommandHandler.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeFolderFactory.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeFolderImageInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeFolderNameInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeItem.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeItemCommandHandler.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeItemFactory.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeItemImageInfo.cs" />
+    <Compile Include="MultipleSaveTree\MultipleSaveTreeItemNameInfo.cs" />
     <Compile Include="MultipleSaveWorkstep.cs" />
     <Compile Include="MultipleSaveWorkstepUI.cs">
       <SubType>UserControl</SubType>
