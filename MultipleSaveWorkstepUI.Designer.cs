@@ -31,10 +31,11 @@ namespace MultipleSave
             this.lblInfo = new System.Windows.Forms.Label();
             this.txtInfo = new System.Windows.Forms.TextBox();
             this.lblNumber = new System.Windows.Forms.Label();
-            this.txtNumber = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnLoad = new System.Windows.Forms.Button();
             this.lblStatus = new System.Windows.Forms.Label();
+            this.numInfo = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numInfo)).BeginInit();
             this.SuspendLayout();
             // 
             // lblInfo
@@ -48,11 +49,11 @@ namespace MultipleSave
             // 
             // txtInfo
             // 
-            this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtInfo.Location = new System.Drawing.Point(16, 30);
             this.txtInfo.Name = "txtInfo";
-            this.txtInfo.Size = new System.Drawing.Size(350, 20);
+            this.txtInfo.Size = new System.Drawing.Size(362, 20);
             this.txtInfo.TabIndex = 1;
             // 
             // lblNumber
@@ -63,15 +64,6 @@ namespace MultipleSave
             this.lblNumber.Size = new System.Drawing.Size(47, 13);
             this.lblNumber.TabIndex = 2;
             this.lblNumber.Text = "Número:";
-            // 
-            // txtNumber
-            // 
-            this.txtNumber.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNumber.Location = new System.Drawing.Point(16, 81);
-            this.txtNumber.Name = "txtNumber";
-            this.txtNumber.Size = new System.Drawing.Size(350, 20);
-            this.txtNumber.TabIndex = 3;
             // 
             // btnSave
             // 
@@ -103,20 +95,28 @@ namespace MultipleSave
             this.lblStatus.TabIndex = 6;
             this.lblStatus.Text = "Status: Aguardando...";
             // 
+            // numInfo
+            // 
+            this.numInfo.Location = new System.Drawing.Point(16, 82);
+            this.numInfo.Name = "numInfo";
+            this.numInfo.Size = new System.Drawing.Size(362, 20);
+            this.numInfo.TabIndex = 7;
+            // 
             // MultipleSaveWorkstepUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.numInfo);
             this.Controls.Add(this.lblStatus);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.btnSave);
-            this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.lblNumber);
             this.Controls.Add(this.txtInfo);
             this.Controls.Add(this.lblInfo);
             this.MinimumSize = new System.Drawing.Size(400, 260);
             this.Name = "MultipleSaveWorkstepUI";
             this.Size = new System.Drawing.Size(400, 260);
+            ((System.ComponentModel.ISupportInitialize)(this.numInfo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -127,9 +127,9 @@ namespace MultipleSave
         private System.Windows.Forms.Label lblInfo;
         private System.Windows.Forms.TextBox txtInfo;
         private System.Windows.Forms.Label lblNumber;
-        private System.Windows.Forms.TextBox txtNumber;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Label lblStatus;
+        private System.Windows.Forms.NumericUpDown numInfo;
     }
 }

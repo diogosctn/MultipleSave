@@ -69,6 +69,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataSource\CustomDomainObjectComplete.cs">
+      <SubType>Ocean</SubType>
+    </Compile>
+    <Compile Include="DataSource\DataSourceComplete.cs" />
+    <Compile Include="DataSource\CustomDomainObjectNumber.cs">
+      <SubType>Ocean</SubType>
+    </Compile>
+    <Compile Include="DataSource\DataSourceNumber.cs" />
     <Compile Include="DataSource\CustomDomainObjectText.cs">
       <SubType>Ocean</SubType>
     </Compile>
@@ -134,6 +142,9 @@
     <Content Include="OceanResources\Readme.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="MultipleSaveWorkstepUI.resx">
+      <DependentUpon>MultipleSaveWorkstepUI.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

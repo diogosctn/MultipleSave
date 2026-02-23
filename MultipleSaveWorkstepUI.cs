@@ -40,9 +40,6 @@ namespace MultipleSave
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            MultipleSaveTreeManager.CreateFolder();
-            MultipleSaveTreeManager.CreateFullDataItem();
-
             MultipleSaveTreeManager.SaveTextDataItem(txtInfo.Text);
         }
 

@@ -15,9 +15,9 @@ namespace MultipleSave
 		/// <summary>
 		/// MultipleSaveTreeItem symbolises this instance in the tree.
 		/// </summary>
-		private object data;
+		public CustomDomainObjectComplete data;
 
-		public MultipleSaveTreeItem(object dataobj)
+		public MultipleSaveTreeItem(CustomDomainObjectComplete dataobj)
 		{
 			this.data = dataobj;
 			this.Text = "MultipleSaveTreeItem";

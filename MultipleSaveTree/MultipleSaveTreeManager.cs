@@ -31,7 +31,7 @@ namespace MultipleSave
             }
         }
 
-        public static void CreateFullDataItem()
+        public static void SaveItem(string text, double number)
         {
             if (!PetrelProject.IsPrimaryProjectOpen)
             {
@@ -39,13 +39,71 @@ namespace MultipleSave
                 return;
             }
 
-            MultipleSaveTreeItem multipleSaveTreeItem = new MultipleSaveTreeItem("");
+            IDataSourceManager dsManager = DataManager.DataSourceManager;
+            StructuredArchiveDataSource dataSource = DataSourceTextFactory.Get(dsManager);
+
+            CustomDomainObjectComplete fullObj = new CustomDomainObjectComplete(dataSource);
+            CustomDomainObjectText textObj = new CustomDomainObjectText(dataSource);
+            CustomDomainObjectNumber numberObj = new CustomDomainObjectNumber(dataSource);
+
+            fullObj.Text = text;
+            fullObj.Number = number;
+
+            textObj.Text = text;
+            numberObj.Number = number;
+
+            MultipleSaveTreeItem multipleSaveTreeItem = new MultipleSaveTreeItem(fullObj);
+
+            MultipleSaveTextTreeItem multipleSaveTextTreeItem = new MultipleSaveTextTreeItem(textObj);
+            MultipleSaveNumberTreeItem multipleSaveNumberTreeItem = new MultipleSaveNumberTreeItem(numberObj);
 
             using (ITransaction txn = DataManager.NewTransaction())
             {
-                txn.Lock(PetrelProject.PrimaryProject);
-                PetrelProject.PrimaryProject.Extensions.Add(multipleSaveTreeItem);
-                txn.Commit();
+                try
+                {
+                    txn.Lock(PetrelProject.PrimaryProject);
+                    PetrelProject.PrimaryProject.Extensions.Add(multipleSaveTreeItem);
+                    txn.Commit();
+                }
+                catch (Exception ex)
+                {
+                    txn.Abandon();
+                    PetrelLogger.ErrorBox("Erro ao salvar: " + ex.Message);
+                }
+            }
+        }
+
+        public static void SaveCompleteDataItem(string text, double number)
+        {
+            if (!PetrelProject.IsPrimaryProjectOpen)
+            {
+                PetrelLogger.ErrorBox("Um projeto Petrel deve estar aberto para criar pastas.");
+                return;
+            }
+
+            IDataSourceManager dsManager = DataManager.DataSourceManager;
+            StructuredArchiveDataSource dataSource = DataSourceTextFactory.Get(dsManager);
+
+            CustomDomainObjectComplete obj = new CustomDomainObjectComplete(dataSource);
+
+            obj.Text = text;
+            obj.Number = number;
+
+            MultipleSaveTreeItem multipleSaveTreeItem = new MultipleSaveTreeItem(obj);
+
+            using (ITransaction txn = DataManager.NewTransaction())
+            {
+                try
+                {
+                    txn.Lock(PetrelProject.PrimaryProject);
+                    PetrelProject.PrimaryProject.Extensions.Add(multipleSaveTreeItem);
+                    txn.Commit();
+                }
+                catch (Exception ex)
+                {
+                    txn.Abandon();
+                    PetrelLogger.ErrorBox("Erro ao salvar: " + ex.Message);
+                }
             }
         }
 
@@ -81,7 +139,7 @@ namespace MultipleSave
             }
         }
 
-        public static void SaveNumberDataItem(string text)
+        public static void SaveNumberDataItem(int number)
         {
             if (!PetrelProject.IsPrimaryProjectOpen)
             {
@@ -92,9 +150,9 @@ namespace MultipleSave
             IDataSourceManager dsManager = DataManager.DataSourceManager;
             StructuredArchiveDataSource dataSource = DataSourceTextFactory.Get(dsManager);
 
-            CustomDomainObjectText obj = new CustomDomainObjectText(dataSource);
+            CustomDomainObjectNumber obj = new CustomDomainObjectNumber(dataSource);
 
-            obj.Text = text;
+            obj.Number = number;
 
             MultipleSaveNumberTreeItem multipleSaveNumberTreeItem = new MultipleSaveNumberTreeItem(obj);
 
@@ -111,6 +169,27 @@ namespace MultipleSave
                     txn.Abandon();
                     PetrelLogger.ErrorBox("Erro ao salvar: " + ex.Message);
                 }
+            }
+        }
+
+        public static (string, double) GetFullDataFromSelectedObject()
+        {
+            if (!PetrelProject.IsPrimaryProjectOpen) return (null, double.NaN);
+
+            MultipleSaveTreeItem selectedObject = PetrelProject.ActiveTree?.GetSelected<MultipleSaveTreeItem>().FirstOrDefault();
+
+            if (selectedObject != null)
+            {
+                string text = selectedObject.data.Text;
+                double number = selectedObject.data.Number;
+
+                PetrelLogger.InfoOutputWindow($"Resgatado o objeto '{selectedObject.NameInfo.Name}': {text} e {number}");
+                return (text, number);
+            }
+            else
+            {
+                PetrelLogger.InfoBox("Por favor, selecione um objeto de texto na árvore do Petrel.");
+                return (null, double.NaN);
             }
         }
 
@@ -134,15 +213,15 @@ namespace MultipleSave
             }
         }
 
-        public static string GetNumberFromSelectedObject()
+        public static double GetNumberFromSelectedObject()
         {
-            if (!PetrelProject.IsPrimaryProjectOpen) return null;
+            if (!PetrelProject.IsPrimaryProjectOpen) return double.NaN;
 
             MultipleSaveNumberTreeItem selectedObject = PetrelProject.ActiveTree?.GetSelected<MultipleSaveNumberTreeItem>().FirstOrDefault();
 
             if (selectedObject != null)
             {
-                string content = selectedObject.data.Text;
+                double content = selectedObject.data.Number;
 
                 PetrelLogger.InfoOutputWindow($"Texto resgatado do objeto '{selectedObject.NameInfo.Name}': {content}");
                 return content;
@@ -150,7 +229,7 @@ namespace MultipleSave
             else
             {
                 PetrelLogger.InfoBox("Por favor, selecione um objeto de texto na árvore do Petrel.");
-                return null;
+                return double.NaN;
             }
         }
     }
