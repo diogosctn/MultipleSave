@@ -40,12 +40,21 @@ namespace MultipleSave
 
         private void BtnSave_Click(object sender, EventArgs e)
         {
-            MultipleSaveTreeManager.SaveTextDataItem(txtInfo.Text);
+            MultipleSaveTreeManager.SaveItem(txtInfo.Text, (double)numInfo.Value);
         }
 
         private void BtnLoad_Click(object sender, EventArgs e)
         {
-            txtInfo.Text = MultipleSaveTreeManager.GetTextFromSelectedObject();
+            (string, double) data = MultipleSaveTreeManager.GetDataFromSelectedObject();
+
+            if(data.Item1 != null)
+            {
+                txtInfo.Text = data.Item1;
+            }
+            if (!double.IsNaN(data.Item2))
+            {
+                numInfo.Value = (decimal)data.Item2;
+            }
         }
     }
 }

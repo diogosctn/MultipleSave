@@ -20,7 +20,7 @@ namespace MultipleSave
     /// To get more information please refer to Ocean Development User guide and chm.
     /// </summary>
     [Archivable(Version = 1, FromRelease = "2024.1")]
-    public class CustomDomainObjectText : IIdentifiable, INameInfoSource, ICopyable, IMovableElement
+    public class CustomDomainObjectText : IIdentifiable, INameInfoSource, ICopyable, IMovableElement, IDeletable
     {
         [Archived]
         private string _name = "Multiple Save | Text";
@@ -162,6 +162,21 @@ namespace MultipleSave
 
         #endregion
 
+
+        #region IDeletable Members
+        //IDeletable.DeletableInfo just informs the object can be deleted
+        public DeletableInfo DeletableInfo
+        {
+            get { return new DeletableInfo(); }
+        }
+
+        //Implementation of IDeletable.Delete
+        public void Delete()
+        {
+            Deleted?.Invoke(this, new EventArgs());
+        }
+        public event EventHandler Deleted = null;
+        #endregion
     }
 
 }

@@ -48,22 +48,7 @@ namespace MultipleSave
             //Add custom domain object types into this array
             Type[] supportedTypes = new Type[] { typeof(MultipleSave.CustomDomainObjectComplete) };
             StructuredArchiveDataSource dataSource = new StructuredArchiveDataSource(DataSourceId, supportedTypes);
-            //Register archivable surrogates here
-            //dataSource.AddArchivableSurrogate(new DataSourceCompleteFacadeSurrogate<Borehole>());
             return dataSource;
-        }
-    }
-
-    /// <summary>
-    /// Surrogate for native domain objects.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>    
-    public class DataSourceCompleteFacadeSurrogate<T> : ArchivableSurrogate<T> where T : class, IIdentifiable, IDomainObject
-    {
-        protected override T Serialize(IStructuredArchive ar, T value)
-        {
-            ar.SerializeReference("Droid", () => value.Droid, (droid) => CoreSystem.GetService<IDomainObjectHost>().Admin.ToIdentifiableFacade<T>(droid));
-            return value;
         }
     }
 }
