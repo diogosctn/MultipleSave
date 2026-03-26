@@ -20,7 +20,7 @@ namespace MultipleSave
     /// To get more information please refer to Ocean Development User guide and chm.
     /// </summary>
     [Archivable(Version = 1, FromRelease = "2024.1")]
-    public class CustomDomainObjectNumber : IIdentifiable, INameInfoSource, IDeletable
+    public class CustomDomainObjectNumber : PersistedObject, INameInfoSource
     {
         [Archived]
         private string _name = "Multiple Save | Number";
@@ -31,38 +31,18 @@ namespace MultipleSave
         [ArchivableContextInject]
         private StructuredArchiveDataSource _dataSource;
 
-        private CustomDomainObjectNumber(Droid droid, StructuredArchiveDataSource dataSource)
-        {
-            _dataSource = dataSource;
-            Droid = droid;
-            dataSource.AddItem(Droid, this);
-        }
-
-        public CustomDomainObjectNumber(StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
+        public CustomDomainObjectNumber(Droid parent) : base(parent, true, false)
         {
         }
 
-        public CustomDomainObjectNumber(string name, StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
-        {
-            _name = name;
-        }
+        #region PersistedObject Members
 
-        public CustomDomainObjectNumber(CustomDomainObjectNumber customDomainObject, StructuredArchiveDataSource dataSource)
-            : this(customDomainObject.Droid, dataSource)
-        {
-            
-        }
+        protected override StructuredArchiveDataSource DataSource =>
+            DataSourceNumberFactory.Get(DataManager.DataSourceManager);
+
+        #endregion
 
         #region IIdentifiable Members
-
-        [Archived]
-        public Droid Droid
-        {
-            get; private set;
-        }
-
         /// <summary>
         /// Propriedade pública para acessar e modificar o valor numérico.
         /// </summary>
@@ -77,7 +57,7 @@ namespace MultipleSave
                 if (_value != value)
                 {
                     _value = value;
-                    if (_dataSource != null) _dataSource.IsDirty = true;
+                    FlagDirty();
                 }
             }
         }
@@ -89,25 +69,25 @@ namespace MultipleSave
         [OnDeserialized]
         void OnDeserialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject2 is deserialized.");
         }
 
         [OnDeserializing]
         void OnDeserializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject2 is deserializing...");
         }
 
         [OnSerialized]
         void OnSerialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject2 is serialized.");
         }
 
         [OnSerializing]
         void OnSerializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject2 is serializing...");
         }
 
         #endregion
@@ -119,22 +99,6 @@ namespace MultipleSave
             get { return new DefaultNameInfo(_name); }
         }
 
-        #endregion
-
-
-        #region IDeletable Members
-        //IDeletable.DeletableInfo just informs the object can be deleted
-        public DeletableInfo DeletableInfo
-        {
-            get { return new DeletableInfo(); }
-        }
-
-        //Implementation of IDeletable.Delete
-        public void Delete()
-        {
-            Deleted?.Invoke(this, new EventArgs());
-        }
-        public event EventHandler Deleted = null;
         #endregion
     }
 

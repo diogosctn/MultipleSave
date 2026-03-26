@@ -39,14 +39,10 @@ namespace MultipleSave
                 return;
             }
 
-            IDataSourceManager dsManager = DataManager.DataSourceManager;
-            StructuredArchiveDataSource dataSourceComplete = DataSourceCompleteFactory.Get(dsManager);
-            StructuredArchiveDataSource dataSourceText = DataSourceTextFactory.Get(dsManager);
-            StructuredArchiveDataSource dataSourceNumber = DataSourceNumberFactory.Get(dsManager);
 
-            CustomDomainObjectComplete fullObj = new CustomDomainObjectComplete(dataSourceComplete);
-            CustomDomainObjectText textObj = new CustomDomainObjectText(dataSourceText);
-            CustomDomainObjectNumber numberObj = new CustomDomainObjectNumber(dataSourceNumber);
+            CustomDomainObjectComplete fullObj = new CustomDomainObjectComplete();
+            CustomDomainObjectText textObj = new CustomDomainObjectText(fullObj.Droid);
+            CustomDomainObjectNumber numberObj = new CustomDomainObjectNumber(fullObj.Droid);
 
             fullObj.Text = text;
             fullObj.Number = number;

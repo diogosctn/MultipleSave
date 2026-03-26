@@ -81,6 +81,7 @@
       <SubType>Ocean</SubType>
     </Compile>
     <Compile Include="DataSource\DataSourceText.cs" />
+    <Compile Include="DataSource\PersistedObject.cs" />
     <Compile Include="MultipleSaveTree\MultipleSaveTreeManager.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Module.cs" />

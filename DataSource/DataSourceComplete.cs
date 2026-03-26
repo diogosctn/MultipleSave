@@ -51,4 +51,13 @@ namespace MultipleSave
             return dataSource;
         }
     }
+
+    public class DataSourceFacadeSurrogate<T> : ArchivableSurrogate<T> where T : class, IIdentifiable, IDomainObject
+    {
+        protected override T Serialize(IStructuredArchive ar, T value)
+        {
+            ar.SerializeReference("Droid", () => value.Droid, (droid) => CoreSystem.GetService<IDomainObjectHost>().Admin.ToIdentifiableFacade<T>(droid));
+            return value;
+        }
+    }
 }

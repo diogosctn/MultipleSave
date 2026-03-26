@@ -1,8 +1,10 @@
-using System;
 using Slb.Ocean.Core;
 using Slb.Ocean.Petrel;
 using Slb.Ocean.Petrel.UI;
 using Slb.Ocean.Petrel.Workflow;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MultipleSave
 {
@@ -42,11 +44,8 @@ namespace MultipleSave
         /// </summary>
         public void Integrate()
         {
-            // Register MultipleSave.DataSourceComplete
             PetrelSystem.AddDataSourceFactory(MultipleSave.DataSourceCompleteFactory.Instance);
-            // Register MultipleSave.DataSourceNumber
             PetrelSystem.AddDataSourceFactory(MultipleSave.DataSourceNumberFactory.Instance);
-            // Register MultipleSave.DataSourceText
             PetrelSystem.AddDataSourceFactory(MultipleSave.DataSourceTextFactory.Instance);
             // Register TreeItem
             CoreSystem.Services.AddService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.INameInfoFactory), MultipleSave.MultipleSaveTreeFolderFactory.Instance);
@@ -93,8 +92,6 @@ namespace MultipleSave
         /// </summary>
         private void WorkspaceOpened(object sender, WorkspaceEventArgs args)
         {
-
-            // TODO:  Add Workspace Opened eventhandler implementation
         }
 
         /// <summary>
@@ -124,11 +121,8 @@ namespace MultipleSave
         /// </summary>
         public void Disintegrate()
         {
-            // Unregister DataSourceComplete
             PetrelSystem.RemoveDataSourceFactory(MultipleSave.DataSourceCompleteFactory.Instance);
-            // Unregister DataSourceNumber
             PetrelSystem.RemoveDataSourceFactory(MultipleSave.DataSourceNumberFactory.Instance);
-            // Unregister DataSourceText
             PetrelSystem.RemoveDataSourceFactory(MultipleSave.DataSourceTextFactory.Instance);
             CoreSystem.Services.RemoveService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.INameInfoFactory));
             CoreSystem.Services.RemoveService(typeof(MultipleSave.MultipleSaveTreeFolder), typeof(Slb.Ocean.Petrel.UI.IImageInfoFactory));

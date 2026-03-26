@@ -6,9 +6,6 @@ using Slb.Ocean.Petrel.Data.Persistence;
 using Slb.Ocean.Petrel.DomainObject;
 using Slb.Ocean.Petrel.UI;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using System.Runtime.Serialization;
 
 namespace MultipleSave
@@ -19,8 +16,8 @@ namespace MultipleSave
     /// ArchivableAliasAttribute allows type remapping along with ArchivableAttribute.This allows moving a type to a different namespace, assembly, or to change the signing key.
     /// To get more information please refer to Ocean Development User guide and chm.
     /// </summary>
-    [Archivable(Version = 1, FromRelease = "2024.1")]
-    public class CustomDomainObjectComplete : IIdentifiable, INameInfoSource, IDeletable
+    [Archivable(Version = 1)]
+    public class CustomDomainObjectComplete : PersistedObject, INameInfoSource
     {
         [Archived]
         private string _name = "Multiple Save | Complete";
@@ -34,38 +31,18 @@ namespace MultipleSave
         [ArchivableContextInject]
         private StructuredArchiveDataSource _dataSource;
 
-        private CustomDomainObjectComplete(Droid droid, StructuredArchiveDataSource dataSource)
-        {
-            _dataSource = dataSource;
-            Droid = droid;
-            dataSource.AddItem(Droid, this);
-        }
-
-        public CustomDomainObjectComplete(StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
+        public CustomDomainObjectComplete() : base(Droid.Empty, true, false)
         {
         }
 
-        public CustomDomainObjectComplete(string name, StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
-        {
-            _name = name;
-        }
+        #region PersistedObject Members
 
-        public CustomDomainObjectComplete(CustomDomainObjectComplete customDomainObject, StructuredArchiveDataSource dataSource)
-            : this(customDomainObject.Droid, dataSource)
-        {
-            
-        }
+        protected override StructuredArchiveDataSource DataSource =>
+            DataSourceCompleteFactory.Get(DataManager.DataSourceManager);
+
+        #endregion
 
         #region IIdentifiable Members
-
-        [Archived]
-        public Droid Droid
-        {
-            get; private set;
-        }
-
         /// <summary>
         /// Propriedade pública para acessar e modificar o valor do texto.
         /// </summary>
@@ -80,7 +57,7 @@ namespace MultipleSave
                 if (_text != value)
                 {
                     _text = value;
-                    if (_dataSource != null) _dataSource.IsDirty = true;
+                    FlagDirty();
                 }
             }
         }
@@ -99,7 +76,7 @@ namespace MultipleSave
                 if (_number != value)
                 {
                     _number = value;
-                    if (_dataSource != null) _dataSource.IsDirty = true;
+                    FlagDirty();
                 }
             }
         }
@@ -111,25 +88,25 @@ namespace MultipleSave
         [OnDeserialized]
         void OnDeserialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject1 is deserialized.");
         }
 
         [OnDeserializing]
         void OnDeserializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject1 is deserializing...");
         }
 
         [OnSerialized]
         void OnSerialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject1 is serialized.");
         }
 
         [OnSerializing]
         void OnSerializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject1 is serializing...");
         }
 
         #endregion
@@ -142,21 +119,5 @@ namespace MultipleSave
         }
 
         #endregion
-
-        #region IDeletable Members
-        //IDeletable.DeletableInfo just informs the object can be deleted
-        public DeletableInfo DeletableInfo
-        {
-            get { return new DeletableInfo(); }
-        }
-
-        //Implementation of IDeletable.Delete
-        public void Delete()
-        {
-            Deleted?.Invoke(this, new EventArgs());
-        }
-        public event EventHandler Deleted = null;
-        #endregion
     }
-
 }

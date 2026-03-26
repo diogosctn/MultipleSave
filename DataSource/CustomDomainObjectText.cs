@@ -19,8 +19,8 @@ namespace MultipleSave
     /// ArchivableAliasAttribute allows type remapping along with ArchivableAttribute.This allows moving a type to a different namespace, assembly, or to change the signing key.
     /// To get more information please refer to Ocean Development User guide and chm.
     /// </summary>
-    [Archivable(Version = 1, FromRelease = "2024.1")]
-    public class CustomDomainObjectText : IIdentifiable, INameInfoSource, ICopyable, IMovableElement, IDeletable
+    [Archivable(Version = 1)]
+    public class CustomDomainObjectText : PersistedObject, INameInfoSource
     {
         [Archived]
         private string _name = "Multiple Save | Text";
@@ -31,38 +31,18 @@ namespace MultipleSave
         [ArchivableContextInject]
         private StructuredArchiveDataSource _dataSource;
 
-        private CustomDomainObjectText(Droid droid, StructuredArchiveDataSource dataSource)
-        {
-            _dataSource = dataSource;
-            Droid = droid;
-            dataSource.AddItem(Droid, this);
-        }
-
-        public CustomDomainObjectText(StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
+        public CustomDomainObjectText(Droid parent) : base(parent, true, false)
         {
         }
 
-        public CustomDomainObjectText(string name, StructuredArchiveDataSource dataSource)
-            : this(dataSource.GenerateDroid(), dataSource)
-        {
-            _name = name;
-        }
+        #region PersistedObject Members
 
-        public CustomDomainObjectText(CustomDomainObjectText customDomainObject, StructuredArchiveDataSource dataSource)
-            : this(customDomainObject.Droid, dataSource)
-        {
-            
-        }
+        protected override StructuredArchiveDataSource DataSource =>
+            DataSourceTextFactory.Get(DataManager.DataSourceManager);
+
+        #endregion
 
         #region IIdentifiable Members
-
-        [Archived]
-        public Droid Droid
-        {
-            get; private set;
-        }
-
         /// <summary>
         /// Propriedade pública para acessar e modificar o valor do texto.
         /// </summary>
@@ -77,7 +57,7 @@ namespace MultipleSave
                 if (_value != value)
                 {
                     _value = value;
-                    if (_dataSource != null) _dataSource.IsDirty = true;
+                    FlagDirty();
                 }
             }
         }
@@ -89,25 +69,25 @@ namespace MultipleSave
         [OnDeserialized]
         void OnDeserialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject3 is deserialized.");
         }
 
         [OnDeserializing]
         void OnDeserializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is deserializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject3 is deserializing...");
         }
 
         [OnSerialized]
         void OnSerialized(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serialized.");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject3 is serialized.");
         }
 
         [OnSerializing]
         void OnSerializing(StreamingContext context)
         {
-            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject is serializing...");
+            PetrelLogger.InfoOutputWindow("ArchivableCustomDomainObject3 is serializing...");
         }
 
         #endregion
@@ -119,63 +99,6 @@ namespace MultipleSave
             get { return new DefaultNameInfo(_name); }
         }
 
-        #endregion
-
-        #region ICopyable
-
-        public object CreateSnapshot()
-        {
-            return new CustomDomainObjectText("Copy of " + _name, _dataSource);
-        }
-
-        public object Copy(CopyContext context)
-        {
-            CustomDomainObjectText newCustomDomainObject = null;
-
-            if (context.TargetCollection is IInput || context.TargetCollection is Collection)
-            {
-                if (context.KeepIdentity)
-                {
-                    newCustomDomainObject = new CustomDomainObjectText(this, _dataSource);
-                }
-                else
-                {
-                    newCustomDomainObject = context.Snapshot as CustomDomainObjectText ?? (CustomDomainObjectText)CreateSnapshot();
-                }
-            }
-
-            return newCustomDomainObject;
-        }
-
-        #endregion
-
-        #region IMovableElement
-
-        public bool CanMove(MovingContext context)
-        {
-            return context.NewParent is IInput || context.NewParent is Collection;
-        }
-
-        public void OnMoving(MovingContext context)
-        {
-        }
-
-        #endregion
-
-
-        #region IDeletable Members
-        //IDeletable.DeletableInfo just informs the object can be deleted
-        public DeletableInfo DeletableInfo
-        {
-            get { return new DeletableInfo(); }
-        }
-
-        //Implementation of IDeletable.Delete
-        public void Delete()
-        {
-            Deleted?.Invoke(this, new EventArgs());
-        }
-        public event EventHandler Deleted = null;
         #endregion
     }
 
